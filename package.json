@@ -1,0 +1,31 @@
+{
+  "name": "kahooteer",
+  "version": "1.0.2",
+  "description": "A wrapper for kahoot's API.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm start --test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/null-object-a/kahooteer.git"
+  },
+  "keywords": [
+    "kahoot",
+    "api",
+    "wrapper"
+  ],
+  "author": "unauthorized",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/null-object-a/kahooteer/issues"
+  },
+  "homepage": "https://github.com/null-object-a/kahooteer#readme",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "cometd": "^7.0.5",
+    "cometd-nodejs-client": "^1.3.0",
+    "random-useragent": "^0.5.0",
+    "uuid4": "^2.0.2"
+  }
+}
