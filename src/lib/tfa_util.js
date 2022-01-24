@@ -32,7 +32,7 @@ module.exports = class TFAUtil {
 			const _ = setTimeout(() => {
 				if (!this.LoggedIn) this.__TFALogin(combination);
 				this.timeouts.splice(this.timeouts.indexOf(_), 1);
-			}, index * (1000 / combinations.length))
+			}, index * 100);
 
 			this.timeouts.push(_);
 		})
