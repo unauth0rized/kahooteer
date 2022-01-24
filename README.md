@@ -15,6 +15,7 @@ Client.Join()
  	.then(() => {
 		console.log(`We are in-game as ${Client.PlayerName}!`)
 	})
-	.catch((reason) => console.log(`Couldn't join game session: ${reason}`))
+	.catch((reason) => console.log(`Couldn't join game session: ${reason}`));
+```
 # Documentation
 Not done yet, but you can look on the scripts on the /test folder for an example.
