@@ -72,7 +72,7 @@ module.exports = class Client extends EventEmitter {
 		Points: 0,
 		Streak: 0,
 		Multiplier: 1,
-		Rank: undefined,
+		Rank: -1,
 	}
 
 	QuizQuestionAnswers = undefined;
@@ -87,7 +87,9 @@ module.exports = class Client extends EventEmitter {
 
 	Nemesis = undefined;
 
-	Left = false;
+	ForceTFA = false;
+
+	ProvidedTeammates = [];
 
 	timeouts = [];
 
@@ -98,8 +100,6 @@ module.exports = class Client extends EventEmitter {
 		this.setMaxListeners(Infinity);
 
 		this.GamePin = GamePin.includes('?pin=') ? new URL(GamePin).searchParams.get('pin') : GamePin;
-
-		this.LeftCount = 0;
 
 		this.PlayerName = PlayerName ?? this.PlayerName;
 	}
@@ -159,15 +159,16 @@ module.exports = class Client extends EventEmitter {
 	async Join()
 	{
 		return new Promise((resolve, reject) => {
-			if (this.Left) {
+			this.removeAllListeners();
+			/*if (this.Left) {
 				return reject('This client has left the session once, cannot rejoin.');
-			}
+			}*/
 			Token.Resolve(this.GamePin).then(
 				async (GameInformation) =>
 					{
 						const WebSocketToken = GameInformation.token;
 
-						this.InstanceInformation.TFA = GameInformation.data.twoFactorAuth;
+						this.InstanceInformation.TFA = GameInformation.data.twoFactorAuth || this.ForceTFA;
 
 						this.InstanceInformation.GameId = GameInformation.data.liveGameId;
 
@@ -193,7 +194,6 @@ module.exports = class Client extends EventEmitter {
 								if (data?.type === 'loginResponse') {
 									if (data?.error) {
 										if (data.error === 'USER_INPUT') {
-											console.log(data.description);
 											this.PlayerName = namerator();
 											setTimeout(() => {
 												this.Send('controller', {
@@ -316,7 +316,7 @@ module.exports = class Client extends EventEmitter {
 								this.on('message', async Message => {
 									const { OpCode } = Message;
 									if (OpCode === OpCodes.USERNAME_ACCEPTED) {
-										const names = [this.PlayerName]; //namerator.bulk(199);
+										const names = [this.PlayerName, ...this.ProvidedTeammates]; //namerator.bulk(199);
 										
 										setTimeout(async () => await this.Send('controller', {
 											content: JSON.stringify(names),
@@ -351,7 +351,7 @@ module.exports = class Client extends EventEmitter {
 			})
 			.then(() => {
 				this.LoggedIn = false;
-				this.Left = true;
+				this.PlayerName = namerator();
 				this.WebSocket.disconnect(resolve);
 				this.emit('left', reason);
 			})
