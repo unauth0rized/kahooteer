@@ -9,7 +9,7 @@ npm install kahooteer
 ```js
 const kahooteer = require('kahooteer');
 
-const Client = new kahooteer.Client('xxxxxx', 'kahooteer'); // this accepts an invite link or a pin.
+const Client = new kahooteer('xxxxxx', 'kahooteer'); // this accepts an invite link or a pin.
 
 Client.Join()
  	.then(() => {
