@@ -6,6 +6,10 @@ class Question {
 
 	Answers = [];
 
+	Title = undefined;
+
+	Choices = undefined;
+
 	AnswersAllowed = 1;
 
 	AvaiableChoices = 4;

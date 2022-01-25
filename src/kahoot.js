@@ -450,7 +450,11 @@ module.exports = class Client extends EventEmitter {
 
 					this.CurrentQuestion = this.Questions[QuestionIndex];
 
-					if (this.CurrentQuestion) this.CurrentQuestion.TimeLeft = Content.timeLeft;
+					if (this.CurrentQuestion) {
+						var question = this.CurrentQuestion;
+						question.TimeLeft = Content.timeLeft;
+						question.Title = Content.Title; question.Choices = Content.choices;
+					}
 
 					// This should only pass if we have joined in an already running game.
 					if (this.CurrentQuestion === undefined) {
@@ -463,6 +467,8 @@ module.exports = class Client extends EventEmitter {
 						question.AnswersAllowedCount = AnswersAllowedCount;
 
 						question.TimeLeft = TimeLeft;
+
+						question.Title = Content.Title; question.Choices = Content.choices;
 
 						question.AnswerCount = AnswerCount;
 
