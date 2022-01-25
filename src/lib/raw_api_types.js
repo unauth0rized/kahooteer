@@ -26,6 +26,8 @@ class Question {
 
 	HasAnswer = false;
 
+	GetReadyTime = 0;
+
 	constructor(QuestionIndex) {
 		this.Index = QuestionIndex;
 	}

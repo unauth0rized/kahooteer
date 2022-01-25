@@ -1,6 +1,6 @@
 const Client = require('../src/kahoot');
 
-const Player = new Client('https://kahoot.it?pin=616045');
+const Player = new Client('https://kahoot.it?pin=3167106');
 
 //Player.verbose = true;
 
