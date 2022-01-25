@@ -432,6 +432,9 @@ module.exports = class Client extends EventEmitter {
 
 					question.AvaiableChoices = AvaiableChoices;
 
+					if (Content.title) question.Title = Content.title;
+					if (Content.choices) question.Choices = Content.choices;
+
 					question.Type = Type;
 
 					this.BlockCount = Content.totalGameBlockCount;
@@ -453,7 +456,8 @@ module.exports = class Client extends EventEmitter {
 					if (this.CurrentQuestion) {
 						var question = this.CurrentQuestion;
 						question.TimeLeft = Content.timeLeft;
-						question.Title = Content.title; question.Choices = Content.choices;
+						if (Content.title) question.Title = Content.title;
+						if (Content.choices) question.Choices = Content.choices;
 					}
 
 					// This should only pass if we have joined in an already running game.
